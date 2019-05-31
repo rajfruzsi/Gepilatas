@@ -84,7 +84,7 @@ plt.xlabel('Epoch')
 plt.legend(['Train', 'Test'], loc='upper left')
 plt.show()
 
-#model.save('neuralnet.h5')
+model.save('neuralnet.h5')
 image_index = 334
 plt.imshow(X_test[image_index].reshape(28, 28))
 pred = model.predict(X_test[image_index].reshape(1, 784))

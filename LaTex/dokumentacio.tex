@@ -144,7 +144,7 @@ Kikommentezve ez a neuralnet.py fájlban is megtalálható, amennyiben valakinek
 
 	\fejezet{Felismerés tesseracttal}
 
-Mivel a neurális háló elkészítéséhez nem használtam az órán tanultakat, úgy éreztem, hogy a megszerzett ismereteket mégiscsak be kéne mutatni, így elkészítettem egy második kódot.
+Mivel a neurális háló elkészítéséhez az órán tanultakat kevésbé használtam, úgy éreztem, hogy a megszerzett ismereteket jobban be tudnám mutatni, így elkészítettem egy második kódot.
 A kód elkészítéséhez szükség volt az opencv, pytesseract és numpy librarykre. A pytesseract használatához Linux mint operációs rendszeren dolgoztam. Fontos megjegyezni, hogy a tesseract kézzel írott szövegekkel nehezen dolgozik, így az MNIST adatbázisnak a tesztelése itt nem célszerű, ezért nyomtatott szövegekkel lett tesztelve.
 
 A kód alapvetően a tesseract image\_to\_string() függvényén alapult. A működéshez gyakorlatilag elég lenne annyi is, hogy egy kép beolvasásra kerül, majd át van adva ennek a függvénynek paraméterként, viszont ez sok esetben nem ad megfelelő eredményt.
@@ -180,7 +180,7 @@ A teljes működéshez végül a fenti függvények meghívása szükséges már
 
 
 A felismerés ezzel a kóddal természetesen nem olyan pontos mint mondjuk a neurális hálóval. A kód pontosságát nagyban befolyásolja a megfelelő zajtalanítás és előfeldolgozás, viszont ezzel a ló másik oldalára is át lehet esni. 
-Erre ékes példaként szolgál az alábbi sor, ami alapvetően kikommentezve van a kódban, mivel inkább ront, mint javít, viszont előfordult olyan eset is, hogy javított.
+Erre ékes példaként szolgál az alábbi sor, ami alapvetően kikommentelve szerepel a kódban, mivel inkább ront, mint javít, viszont előfordult olyan eset is, hogy javított.
 
 \kodreszlet{py}{A kérdéses sor}{python}{komment.py}
 
@@ -188,7 +188,7 @@ Erre a javításra példa az alábbi:
 
 \abra{elso}{Megfelelő felismerés}{height=10cm}{Saját ábra}
 
-A 3. ábrán az látható, ahogyan a zaj elüntetésre kerül, és milyen eredményt ismer fel a tesseract.
+A 3. ábrán az látható, ahogyan a zaj eltüntetésre kerül, és milyen eredményt ismer fel a tesseract.
 
 A sor ezután ki lett kommentelve, ahol viszont a 4. ábrán látható eredményt kaptuk.
 

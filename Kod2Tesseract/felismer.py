@@ -6,7 +6,7 @@ from pytesseract import image_to_string
 from pytesseract import Output
 
 srcpath=""
-imgname="tesztkep.jpg"
+imgname="test.png"
 
 def preproc(imgpath):
     img=cv2.imread(imgpath)
@@ -14,7 +14,7 @@ def preproc(imgpath):
     kernel=np.ones((1,1), np.uint8)
     img=cv2.dilate(img, kernel, iterations=1)
     img=cv2.erode(img, kernel, iterations=1)
-    img = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
+    #img = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
     cv2.imwrite(srcpath+ "thresh.png", img)
     return img
 
@@ -30,7 +30,7 @@ def boxes(imgpath):
     cv2.destroyAllWindows()
     
 def getstring():
-    config= ("-psm 7")
+    config= ("-psm 3 --oem 1")
     result=pytesseract.image_to_string(Image.open(srcpath + "thresh.png"),config=config)
     file=open("result", "w")
     file.write(result)

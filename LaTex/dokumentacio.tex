@@ -1,0 +1,219 @@
+\documentclass[hidelinks,12pt,a4paper]{report}
+
+\usepackage{mi_makro}
+
+\author{Schöffer Fruzsina Zsuzsanna}
+
+\neptun{TSH86V}
+
+\targynev{Gépi látás}
+
+\targykod{GKNB INTM038}
+
+\hely{Győr}
+
+\title{Karakterfelismerés dokumentáció}
+
+\begin{document}
+	
+	\cimoldal{}
+	\doublespacing
+	\tableofcontents
+	\singlespacing
+	
+	\fejezet{Bevezetés}
+
+	Napjainkban egyre többször hallani a mesterséges intelligenciáról és térhódításáról, hiszen egyre több, régen igen nehezen megoldható probléma megoldása miatt fordulnak hozzá.
+Ilyen összetettebb 
+probléma-körnek tekinthető maga a gépi látás és a képfeldolgozás is, melyek egyre inkább fontosabbak lesznek bizonyos intelligens rendszerek (például önvezető autók) kiépítésében is.
+A képfeldolgozás és a mesterséges intelligencia egyik összefonódása például a mai okostelefonok. Az ezekkel készített képekről a telefonunk sok esetben már automatikusan meghatározza hogy mi, vagy éppen ki látható a képeken és csoportosítja is ezeket.
+Az eszközök másik kényelmi funkciója, hogy karaktereket rajzolunk a képernyőre és az egyes alkalmazások azt egy bizonyos karakterré alakítják. Utóbbi esetén már kézírásfelismerésről beszélhetünk.
+
+A képfeldolgozás egyik problémája maga a kézírásfelismerés, mely már a 19. század végén is foglalkoztatta a kutatókat, és a technológia fejlődésével mára már gyakorlatilag az összes manapság használatos okoseszközünk is képes rá.
+Míg régebben eleinte a vakoknak készített olvasógépek elkészítésében, nem sokkal utána már a Morse kód olvasásában volt nagy szerepe. Az ötvenes évektől kezdve ugyanakkor már árucímkék és útlevelek szkennelésére is használták. Manapság pedig a technológia fejlődésével már sok okoseszközben is hasznát vehetjük.
+
+Felmerülhet a kérdés, hogy miért van szükség a mesterséges intelligenciára a kézírásfelismerés megoldására, hiszen karakterek felismeréséről van szó, ami már a 20. században is működött képfeldol-gozási algoritmusokkal.
+Ezek az algoritmusok ugyanakkor nem feltétlen képesek megkülönböztetni az egymástól eltérő írásmódokat, a különböző karaktertulajdonságokat, míg az emberi agy viszont igen.
+Egy gépi rendszer nem képes gondolkodásra, mint az ember, viszont egy ahhoz hasonló működésű már képes lehet erre.
+
+A képfeldolgozási algoritmusok ugyanakkor nem vesznek el, hanem úgymond átalakulnak, és egy másik feladatkört töltenek be a kézírásfelismerésnél. Ezek a felismerési rendszer bemenetének az előfeldolgozására vannak használva.
+A felismerést, mely az emberi agy szerinti relációk alapján végzi azt, pedig olyan rendszerek végzik, mint a neurális hálók, vagy a rejtett Markov modell.
+
+A kézírásfelismerés egy olyan tág fogalom, ami alatt érthetjük a kézzel írott, vagy akár a nyomtatott dokumentumok szövegének felismerését, illetőleg az okoseszközökön bevitt írásokat is.
+A kézzel írott, vagy akár nyomtatott dokumentumok alapvetően oldalakból, sorokból, szavakból, és legvégső soron karakterekből állnak. Ahhoz, hogy a folyamat sikeres legyen, atomi szinten kell annak nekiállni, vagyis a karaktereket kell tudni felismerni, amiből a szavak, azokból a mondatok, sorok, és végül az oldalak lesznek.
+
+A karakterfelismerés egyik legismertebb megközelítése a neurális hálók, így a félév során elsősorban egy neurális háló elkészítése volt a célom a keras library segítségével, mely a befejezés végére 99.3 százalékos pontossággal ismeri fel az MNIST adatbázis tesztelésre szánt karaktereit.
+
+Mivel ebben a kódban úgy éreztem, hogy nem hasznosítottam a félév során tanultakat, így célom volt egy olyan kód megírása, ahol ezzel dolgozok. Ebből kifolyólag a pytesseract library segítségével elkészítettem egy rövid kódot, ahol a képek előfeldolgozása volt a lényeges feladat.
+
+A dokumentációban ebből kifolyólag tehát mindkét kód részletesebben ismertetésre kerül.
+
+Githubon Kod1 mappa alatt a neurális háló neuralnet.py néven és annak tartozékai találhatók. Ezek az MNIST adatbázis (manuális beimportálás esetén) mnist.pkl.gz néven, egy kimentett modell neuralnet.h5 néven, és egy tesztelési kód modeltest.py néven.
+A Kod2Tesseract mappában a felismer.py tartalmazza a forráskódot, a további test1/2/3.jpg/png név alatt a teszthez szükséges képek találhatók.
+
+A megvalósításhoz Python 3-mat és ennek több libraryjét használtam, a saját IDLE ide-jével mind Windows 10, mind Linux Mint alatt.
+
+	
+\fejezet {Neurális háló keras}
+
+A tesztek megvalósításához egy, a Pythonhoz készült keras library segítségével írt neurális hálót használtam.
+A kód megírásában a keras saját dokumentációja nyújtott segítséget.
+
+A kódhoz alapvetően több Python libraryre is szükség volt, melyek a következők voltak:
+Matplotlib, Matplotlib pyplot, Pandas, Sys, Pickle, Gzip, Keras, Numpy.
+
+A matplotlib és a numpy a tesztadatok mentésében és ábrázolásában, míg a sys, gzip és a pickle az MNIST adatbázisának beolvasásában/importálásában játszott szerepet.
+
+Itt megemlítendő, hogy, bár lehetséges, hogy az adatbázis importálása az utolsó 3 library segítsége nélkül működjön csakis a keras segítségével, sajnos Windows 10 alatt a kód írása során egyszer sem tudtam sikeresen letölteni ennek a segítségével az adatbázist, mivel az éppen adott távoli kiszolgáló nem volt elérhető.
+
+Ennek megkerülésére az adatbázist manuálisan töltöttem le, majd az említett libraryk segítségével importáltam be.
+(Ezt meg lehet kerülni azzal is, ha nem ide-ben futtatjuk a kódot, hanem command line segítségével.)
+
+Linux Mint alatt az adatbázis betöltése az mnist.load\_data() függvénnyel ugyanakkor pár másodperc alatt tökéletesen működik.
+
+Az arra való tekintettel, hogy könnyebb az utóbb említettet begépelni, mint az alábbit kódot, így ez maradt benn a kódban és Githubra feltöltésre került az ehhez szükséges adat is.
+
+
+\kodreszlet{py}{Forráskód az MNIST adatbázis manuális beimportálására}{python}{mnist.py}
+
+
+A kerasból beimportálásra került a szekvenciális modell felépítéséért felelős egysége, illetve több elemi egység (pl. aktivációs függvények, rétegek) is.
+Miután a megfelelő eszközök importálása megtörtént, a betanítás megkezdése előtt először muszáj a képeket előfeldolgozni.
+
+A tesztelésre és betanításra szánt képeket először is vektorrá alakítjuk, majd normalizáljuk.
+Mivel a képek 28*28 pixel méretűek, így a vektor 784 pixel méretű kell, hogy legyen.
+Utóbbi segít felgyorsítani a betanítást, és elkerülni azt, hogy egy lokális minimumon ragadjon az eljárás.
+
+A betanításhoz az MNIST adatbázis elemei lettek felhasználva, amiben pontosan 60.000 karakter van betanításra, és további 10.000 pedig validálásra.
+Ahhoz, hogy pontos eredményeket adjon a háló, a betanítási és validálási adatokat muszáj még átalakítani float-tá.
+
+\kodreszlet{py}{Forráskód a modell betanítására}{python}{betanit.py}
+
+Ezek után történik az úgynevezett One-hot encoding, ami lényegében azért felel, hogy egy olyan vektort hozzon létre, aminek hossza az osztályozási lehetőségek számával megegyezik.
+A kódban a számjegyek felismerése a cél, így a hossz alapvetően 10 lesz.
+Jelöljük a vektort v-vel, és amennyiben 2-est kapunk eredményül az a következőképp fog kinézni:
+
+v=[0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+
+\kodreszlet{py}{Forráskód a one-hot encodingról}{python}{onehot.py}
+
+Az előfeldolgozás megtörténte után kerül a modell összeállításra:
+
+\kodreszlet{py}{Forráskód a modell felépítésére}{python}{model.py}
+
+A modell alapvetően 2 rétegű (bemeneti, egy rejtett, kimeneti). A bemeneti réteg 784 csomóponttal fog rendelkezni, a képek 28*28 pixeles mérete miatt. Ezután következik a rejtett réteg egy adott aktivációs függvénnyel (ami ez esetben a ReLU), majd pedig a kimeneti réteg, ami 10 csomóponttal rendelkezik a lehetőségek száma szerint softmax aktivációs függvénnyel.
+
+A kódban fellelhető egy ,,Dropout” attribútum is, ami a túlilleszkedést hivatott elkerülni. Ilyenkor néhány súly értékét megtartjuk, és nem frissítjük. Az értéke 0,2, ami azért nem lett nagyobb, mivel a háló mérete sem túl nagy, így nem lenne ideális.
+
+
+\kodreszlet{py}{Forráskód a modell összeállítására}{python}{compile.py}
+
+
+A kód következő részében a keras segítségével a modell össze lesz állítva, és itt adható meg a veszteségfüggvény, illetve az optimalizáló is.
+Az optimalizálónak az elterjedt ,,adam”-ot használtam, ami az adaptív lendület módszere. Ez a tanulási rátát befolyásolja, és meghatározza, hogy az optimális súlyok milyen gyorsasággal lesznek kiszámítva. Egy alacsonyabb ráta bizonyos szintig pontosabb súlyokat eredményezhet, viszont figyelembe kell venni, hogy a futási idő így nő.
+
+
+Az összeállítás után kezdődik a modell betanítása:
+
+\kodreszlet{py}{Forráskód a modell paramétereire}{python}{training.py}
+
+A kódban szabadon módosítható, hogy éppen milyen aktivációs függvényt használjunk, esetemben én ReLU-t használtam, mivel az bizonyult a legnagyobb pontosságúnak. Az alábbi ábrán maga a függvény látható.
+
+\abra{relu}{A ReLU függvény grafikus ábrázolása}{height=10cm}{Saját ábra}
+
+A függvényhez szükséges kód az alábbiakban látható:
+
+\kodreszlet{py}{Forráskód a függvényhez}{python}{relufgv.py}
+
+A kód tartalmaz pár olyan további részletet, ami az eredményeket menti ki txt-be, a futási időt mutatja, vagy éppen függvényen ábrázolja őket. Az alábbi kódrészlet is ezt mutatja be:
+
+\kodreszlet{py}{Forráskód az eredmények grafikus ábrázolásához}{python}{plot.py}
+
+Ez a 2. ábrát eredményezi.
+
+\abra{modelacc}{A modell pontosságának fejlődése:}{height=10cm}{Saját ábra}
+
+
+A kód mellé ugyanakkor egy kisebb, tesztelési kódot is írtam, ami a már elkészített modellt importálja be, és az adatbázis kijelölt elemeit ellenőrzi.
+Itt megjegyzendő, hogy az adatbázis itt nem manuálisan kerül importálásra, viszont az előzőekben említett részletet (1. kódrészlet) bemásolva ez is megvalósítható, amennyiben esetleg ez nem működne.
+
+
+\kodreszlet{py}{Forráskód a teszteléshez}{python}{test.py}
+
+Kikommentezve ez a neuralnet.py fájlban is megtalálható, amennyiben valakinek ez kényelmesebb tesztelést jelent.
+
+	\fejezet{Felismerés tesseracttal}
+
+Mivel a neurális háló elkészítéséhez nem használtam az órán tanultakat, úgy éreztem, hogy a megszerzett ismereteket mégiscsak be kéne mutatni, így elkészítettem egy második kódot.
+A kód elkészítéséhez szükség volt az opencv, pytesseract és numpy librarykre. A pytesseract használatához Linux mint operációs rendszeren dolgoztam. Fontos megjegyezni, hogy a tesseract kézzel írott szövegekkel nehezen dolgozik, így az MNIST adatbázisnak a tesztelése itt nem célszerű, ezért nyomtatott szövegekkel lett tesztelve.
+
+A kód alapvetően a tesseract image\_to\_string() függvényén alapult. A működéshez gyakorlatilag elég lenne annyi is, hogy egy kép beolvasásra kerül, majd át van adva ennek a függvénynek paraméterként, viszont ez sok esetben nem ad megfelelő eredményt.
+
+Ebből kifolyólag szükséges volt a képek előfeldolgozása.
+Az előfeldolgozáshoz a preproc(imgpath) függvény került implementálásra, ami a javított képet adja vissza.
+A függvényben zajtalanítás és szürkeárnyalattá konvertálás történik.
+
+\kodreszlet{py}{Forráskód a preproc függvényről}{python}{preproc.py}
+
+Az opencv dokumentációja alapján zajtalanítás esetén általános mód, hogy először az erode, majd a dilate funkció kerül használatra ebben a sorrendben.
+Ennek oka, hogy az erosion bár eltünteti a zajt, mégis vékonyítja kicsit a vizsgált objektumot, így a dilate-tal ezt kövérítjük.
+A kódban is ezt követtem, viszont kíváncsiságból felcseréltem a két funkciót. Meglepetésemre a kettő felcserélése jobb eredményt hozott, így a későbbiekben is ez a sorrend került használatra.
+
+\kodreszlet{py}{Erosion és dilate sorrendje}{python}{eroddilate.py}
+
+A függvényben a javított kép ugyanakkor elmentésre is került, amit utána a getstring() függvény használ majd.
+A javítás után a getstring() függvény került implementálásra, aminek a dolga a tessereact feldolgozó függvényének meghívása, amivel maga a felismerés történik.  Az eredmény ezek után egy result nevű txt fájlba lesz elmentve, illetve a függvény meghívásakor kiiratva.
+
+\kodreszlet{py}{Forráskód a getstring függvényről}{python}{getstring.py}
+
+Itt megjegyzendő, hogy a függvény egyik paramétere a config, amivel beállíthó, hogy az esetleg neurális hálóval, egy adott nyelven, illetve, hogy milyen szegmentáció alapján ellenőrizzen. Az nyelvi beállítás eleinte a kód részét képezte, viszont annak ellenére, hogy a language packből a magyar telepítésre került, ez semmiben sem javította a felismerést magyar nyelvű szövegeken, csupán rontotta azt. A kód esetében psm (lapszegmentáció) a default 3-mas értéket, az oem (OCR engine módok) pedig az 1-es értéket kapta, ami neurális hálókra és LSTM enginekre vonatkozik.
+
+A kódban a harmadik függvény a boxes(imgpath), aminek érdemi nem, de szemléletes funkciója annál inkább van. Itt ugyancsak a tesseract saját függvénye kerül meghívásra, amit egy for ciklussal kiegészítve a felismert szavak kerülnek bekeretezésre.
+Az így kapott kép a kód mappájába ugyanúgy mint az előzőekben elmentésre kerül. Ez nem létfontosságú funkció, viszont a szemléltetés miatt bele került implementálásra.
+
+\kodreszlet{py}{Forráskód a boxes függvényről}{python}{boxes.py}
+
+A teljes működéshez végül a fenti függvények meghívása szükséges már csak:
+
+
+\kodreszlet{py}{Függvények meghívása}{python}{main.py}
+
+
+A felismerés ezzel a kóddal természetesen nem olyan pontos mint mondjuk a neurális hálóval. A kód pontosságát nagyban befolyásolja a megfelelő zajtalanítás és előfeldolgozás, viszont ezzel a ló másik oldalára is át lehet esni. 
+Erre ékes példaként szolgál az alábbi sor, ami alapvetően kikommentezve van a kódban, mivel inkább ront, mint javít, viszont előfordult olyan eset is, hogy javított.
+
+\kodreszlet{py}{A kérdéses sor}{python}{komment.py}
+
+Erre a javításra példa az alábbi:
+
+\abra{elso}{Megfelelő felismerés}{height=10cm}{Saját ábra}
+
+A 3. ábrán az látható, ahogyan a zaj elüntetésre kerül, és milyen eredményt ismer fel a tesseract.
+
+A sor ezután ki lett kommentelve, ahol viszont a 4. ábrán látható eredményt kaptuk.
+
+\abra{masodik}{Nem megfelelő felismerés}{height=10cm}{Saját ábra}
+
+Látható tehát, hogy a sor nélkül több képrészletet (pl.csavar) is szövegként értelmez.
+
+Ugyanakkor egy másik képet megfigyelve, ahol a sor nincs kikommentelve, igen rossz eredményt kaphatunk, ez az 5. ábrán látszik.
+
+\abra{harom}{Nem megfelelő felismerés}{height=5cm}{Saját ábra}
+
+A sort újra kikommentelve az előeőzekben felismert fantomszövegek már nem látszanak. 
+
+\abra{negy}{Megfelelő felismerés}{height=5cm}{Saját ábra}
+
+Több példán ezt megfigyelve arra jutottam, hogy a sor többet árt, mint használ, ezért véglegesen ki lett kommentelve.
+
+Githubra a teszteléshez feltöltésre került pár kép, amikkel a kód működése bemutatható. Megfigyeltem a tesztelés során ugyanakkor, hogy ha valami igen rossz eredményt ad a kód, akkor a következő futtatáskor a kapott eredmények kiírása előtt beragad. Ilyenkor egy újrafuttatás szükséges, és utána újból megfelelően működik.
+
+\fejezet{Összefoglalás}
+
+Az előzőek alapján, futtatva az egyes kódokat látható, hogy a kettő igen különbözik egymástól. Mint az a hosszakon is tükröződik, a neurális háló megírása, a keras működésének megértése jóval több időt vett igénybe, mint a tesseracttal való munka.
+
+
+	
+
+	
+\end{document}

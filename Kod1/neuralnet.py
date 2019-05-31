@@ -85,11 +85,9 @@ plt.legend(['Train', 'Test'], loc='upper left')
 plt.show()
 
 #model.save('neuralnet.h5')
-'''
-test_image = image.load_img('3.png', target_size = (1,784))
-test_image=cv2.cvtColor(np.float32(test_image), cv2.COLOR_BGR2GRAY)
-test_image/=255
-result = model.predict_classes(test_image)
-prediction = result[0]
-print(prediction)
-'''
+image_index = 334
+plt.imshow(X_test[image_index].reshape(28, 28))
+pred = model.predict(X_test[image_index].reshape(1, 784))
+print(pred.argmax())
+plt.show()
+

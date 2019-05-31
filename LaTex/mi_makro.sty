@@ -1,0 +1,142 @@
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[magyar]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[numbib,nottoc]{tocbibind}
+\setcounter{secnumdepth}{3}
+\usepackage{setspace}
+\linespread{1}
+\usepackage[top=2.29cm, bottom=2.54cm, left=2.29cm, right=1.52cm]{geometry}
+\usepackage{sectsty}
+\sectionfont{\normalfont\itshape\bfseries\large}
+\subsectionfont{\normalfont\bfseries\normalsize}
+
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+\counterwithout{equation}{chapter}
+\AtBeginDocument{ 
+	\counterwithout{lstlisting}{chapter}
+}
+
+\newcommand{\targynev}[1]{\def\@targynev{#1}}
+\newcommand{\targykod}[1]{\def\@targykod{#1}}
+\newcommand{\neptun}[1]{\def\@neptun{#1}}
+\newcommand{\hely}[1]{\def\@hely{#1}}
+
+\newcommand{\cimoldal}[0]{
+	\begin{titlepage}
+		\begin{center}
+			\vspace*{12pt}
+			\includegraphics[width=0.4\textwidth]{kepek/sze} \\
+			\vspace*{12pt}
+			\includegraphics[width=0.4\textwidth]{kepek/it} \\
+			\vspace{72pt}
+			\textbf{\Large \@targynev} \\
+			\vspace{12pt}
+			\large\@targykod \\
+			\vspace{140pt}
+			\textbf{\Huge \@title} \\
+			\vspace{120pt}
+		    \textbf{\Large \@author} \\
+			\vspace{12pt}
+			\large\@neptun \\
+			\vspace{40pt}
+			\large\@hely, \today \\
+			\end{center}
+	\end{titlepage}
+}
+
+\newcommand{\kiemel}[1]{
+	\textbf{\emph{#1}}
+}
+
+\newcommand{\irodalom}[1]{
+	\renewcommand{\bibname}{Felhasznált irodalom}
+	\clearpage
+	\bibliographystyle{unsrt}
+	\bibliography{#1}
+}
+
+\newcommand{\melleklet}[0]{
+	\fejezet{Mellékletek}
+	\renewcommand{\thesection}{\Alph{section}}
+	%\sectionfont{\normalfont\itshape\bfseries\large}
+}
+
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titlespacing*{\subsection}{0pt}{12pt}{3pt}
+\newcommand{\fejezet}[1]{
+	\titleformat{\chapter}{\normalfont\bfseries\Large}{\thechapter.}{10pt}{\Large}
+	\titlespacing*{\chapter}{0pt}{12pt}{6pt}
+	\chapter{#1}
+}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyheadoffset[loh,reh]{0mm}
+\fancyheadoffset[leh,roh]{0mm}
+\fancyfoot[RO]{\thepage}
+\fancyhead[R]{\nouppercase{\textbf{\@title}}}
+\renewcommand{\headrulewidth}{0pt}
+
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyfoot[RO]{\thepage}
+	\fancyhead[R]{\textbf{\@title}}
+	\renewcommand{\headrulewidth}{0pt}
+}
+
+\usepackage{graphicx}
+\usepackage[justification=centering]{caption}
+\newcommand{\abra}[4]
+{
+  \begin{figure}[hptb]
+    \begin{center}
+      \includegraphics[#3]{kepek/#1.png}
+      \captionsetup{labelfont=bf}
+      \caption{#2}
+      \emph{Forrás: #4}
+      \label{fig_#1}
+    \end{center}
+  \end{figure}
+}
+
+\usepackage{multirow}
+\usepackage{longtable}
+\newcommand{\tablazat}[4]
+{
+  \begin{table}[hptb]
+    \begin{center}
+    	\captionsetup{labelfont=bf}
+    	\caption{\protect #2}
+    	\label{tab_#1}  
+      \begin{tabular}{#3}
+        #4
+      \end{tabular}    
+    \end{center}
+  \end{table} 
+}
+
+\newcommand{\egyenlet}[2]{
+	\label{eq_#1}
+	\begin{equation}
+		#2
+	\end{equation}
+	\vspace{1pt}
+}
+
+\renewcommand{\lstlistingname}{kódrészlet}
+\newcommand{\kodreszlet}[4]
+{
+	\begin{minipage}{\linewidth}
+		\begin{center}
+			\captionsetup{labelfont=bf}
+			\lstinputlisting[caption=#2,label=code_#1,language=#3,frame=single,numbers=left,breaklines=true,showstringspaces=false]{forrasok/#4}
+		\end{center}
+	\end{minipage}
+}
